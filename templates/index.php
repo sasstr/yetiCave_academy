@@ -30,7 +30,7 @@
                             <span class="lot__cost"><?= format_price ($val['price']) ?><b class="rub">р</b></span>
                         </div>
                         <div class="lot__timer timer">
-                            12:23
+                            <?= $time_until_midnight ?>
                         </div>
                     </div>
                 </div>

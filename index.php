@@ -1,8 +1,16 @@
 <?php
 require_once('functions.php');
 
+date_default_timezone_set('europe/moscow');
+$end_of_lot = strtotime('midnight tomorrow');
+$diff_time = $end_of_lot - time();
+$hours = floor($diff_time / 3600);
+$minutes = floor(($diff_time % 3600) / 60);
+$time_until_midnight = $hours . ':' . $minutes;
+
 $is_auth = rand(0, 1);
-$user_name = 'Александр Приколович'; // укажите здесь ваше имя
+$user_name_str = 'Александр Приколович';
+$user_name = htmlspecialchars($user_name_str);
 $user_avatar = 'img/user.jpg';
 $categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
 $lots = [
@@ -44,12 +52,13 @@ $lots = [
     ]
 ];
 
-$index_array = [
+$index_main = [
     'categories' => $categories,
-    'lots' => $lots
+    'lots' => $lots,
+    'time_until_midnight' => $time_until_midnight
 ];
 
-$index_data = render('index', $index_array);
+$index_data = render('index', $index_main);
 print render('layout', [
     'main_content' => $index_data,
     'title' => $title,
